@@ -1,6 +1,6 @@
 # Yanwen's post-install scripts for VMs
 
-## Debian 12 VM
+## Debian 12.5 VM
 
 run 
 ```
@@ -8,7 +8,7 @@ curl -sSL https://raw.githubusercontent.com/xuyanwen2012/yanwen-homeserver/main/
 ```
 
 
-## Ubuntu 24 VM
+## Ubuntu 24.04 VM
 
 run
 ```
