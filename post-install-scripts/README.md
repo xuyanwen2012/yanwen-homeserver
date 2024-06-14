@@ -4,7 +4,7 @@
 
 run 
 ```
-curl -sSL https://raw.githubusercontent.com/yourusername/yourrepository/main/post_install.sh | sudo bash
+curl -sSL https://raw.githubusercontent.com/xuyanwen2012/yanwen-homeserver/main/post-install-scripts/vm-debian12-docker.sh | sudo bash
 ```
 
 
