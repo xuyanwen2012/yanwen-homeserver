@@ -7,10 +7,15 @@ if [ "$(id -u)" -ne 0 ]; then
 fi
 
 # Update and upgrade the system
-apt update && apt upgrade -y
+apt-get update && apt-get upgrade -y
 
 # Install necessary packages
-apt install -y docker.io docker-compose fish qemu-guest-agent htop tree
+apt-get install -y fish qemu-guest-agent htop tree
+
+# Install Docker and compose using the official Docker script
+curl -fsSL https://get.docker.com -o get-docker.sh
+sh get-docker.sh
+rm ./get-docker.sh
 
 # Create user 'marisa' with UID 1000
 useradd -m -u 1000 -s /usr/bin/fish marisa
