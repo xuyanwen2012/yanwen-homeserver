@@ -8,4 +8,9 @@ curl -sSL https://raw.githubusercontent.com/xuyanwen2012/yanwen-homeserver/main/
 ```
 
 
+## Ubuntu 24 VM
 
+run
+```
+curl -sSL https://raw.githubusercontent.com/xuyanwen2012/yanwen-homeserver/main/post-install-scripts/vm-ubuntu-docker.sh | sudo bash
+```
