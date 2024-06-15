@@ -25,3 +25,4 @@ sudo snap install helix --classic
 chsh -s /usr/bin/fish
 
 echo "Post-installation tasks completed successfully."
+reboot
