@@ -13,9 +13,7 @@ apt-get update && apt-get upgrade -y
 apt-get install -y fish qemu-guest-agent htop tree
 
 # Install Docker and compose using the official Docker script
-curl -fsSL https://get.docker.com -o get-docker.sh
-sh get-docker.sh
-rm ./get-docker.sh
+sh <(curl -sSL https://get.docker.com)
 
 # Create user 'marisa' with UID 1000
 useradd -m -u 1000 -s /usr/bin/fish marisa
