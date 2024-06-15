@@ -3,6 +3,12 @@
 # Exit script on any error
 set -e
 
+# Ensure the script is run as root
+if [ "$(id -u)" -ne 0 ]; then
+  echo "Please run as root"
+  exit 1
+fi
+
 # Update and upgrade the system
 echo "Updating and upgrading the system..."
 sudo apt-get update -y
