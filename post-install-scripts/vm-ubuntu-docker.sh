@@ -16,7 +16,7 @@ sudo apt-get install -y \
     tree
 
 # Install Helix text editor
-sudo snap install helix --classic
+snap install helix --classic
 
 # Set Fish as the default shell
 chsh -s /usr/bin/fish
