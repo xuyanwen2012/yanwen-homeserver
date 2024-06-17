@@ -60,16 +60,8 @@ docker run -d \
 
 ### Lazy Docker
 
-Use docker for Lazy docker
+Use docker for Lazy docker, set alias in *fish* shell config
 
-```
-docker run --rm -it -v \
-/var/run/docker.sock:/var/run/docker.sock \
--v /yourpath:/.config/jesseduffield/lazydocker \
-lazyteam/lazydocker
-```
-
-Then
 ```
 echo "alias lzd='docker run --rm -it -v /var/run/docker.sock:/var/run/docker.sock -v ~/.config/lazydocker:/.config/jesseduffield/lazydocker lazyteam/lazydocker'" >> ~/.config/fish/config.fish
 ```
