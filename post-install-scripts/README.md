@@ -35,7 +35,19 @@ systemctl restart sshd
 
 we can choise from 
 
-### Dockge (for quick setup)
+### Lazy Docker (preffered)
+
+No need to create accounts for web UI, it just work. 
+
+Just put all compose_file in the user's directory, like in `~/`
+
+Use docker for Lazy docker, set alias in *fish* shell config
+
+```
+echo "alias lzd='docker run --rm -it -v /var/run/docker.sock:/var/run/docker.sock -v ~/.config/lazydocker:/.config/jesseduffield/lazydocker lazyteam/lazydocker'" >> ~/.config/fish/config.fish
+```
+
+### Dockge (for small test projects)
 
 ```
 mkdir -p /opt/{dockge,stacks}
@@ -56,14 +68,6 @@ docker run -d \
   -v /var/run/docker.sock:/var/run/docker.sock \
   -v portainer_data:/data \
   portainer/portainer-ce:latest
-```
-
-### Lazy Docker
-
-Use docker for Lazy docker, set alias in *fish* shell config
-
-```
-echo "alias lzd='docker run --rm -it -v /var/run/docker.sock:/var/run/docker.sock -v ~/.config/lazydocker:/.config/jesseduffield/lazydocker lazyteam/lazydocker'" >> ~/.config/fish/config.fish
 ```
 
 
