@@ -1,5 +1,7 @@
 # Yanwen's post-install scripts for VMs
 
+Pretty much 90% of my VMs will use docker.
+
 ## VM basic setup
 
 After create VM:
