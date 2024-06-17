@@ -17,7 +17,6 @@ run
 curl -sSL https://raw.githubusercontent.com/xuyanwen2012/yanwen-homeserver/main/post-install-scripts/vm-debian12-docker.sh | sudo bash
 ```
 
-
 ### Ubuntu 24.04 VM
 
 run
@@ -60,3 +59,19 @@ docker run -d \
 ```
 
 ### Lazy Docker
+
+Use docker for Lazy docker
+
+```
+docker run --rm -it -v \
+/var/run/docker.sock:/var/run/docker.sock \
+-v /yourpath:/.config/jesseduffield/lazydocker \
+lazyteam/lazydocker
+```
+
+Then
+```
+echo "alias lzd='docker run --rm -it -v /var/run/docker.sock:/var/run/docker.sock -v ~/.config/lazydocker:/.config/jesseduffield/lazydocker lazyteam/lazydocker'" >> ~/.config/fish/config.fish
+```
+
+
