@@ -25,8 +25,8 @@ chsh -s /usr/bin/fish root
 # Add 'marisa' to the docker group
 usermod -aG docker marisa
 
-# Start and enable Docker service
-systemctl start docker
-systemctl enable docker
+# # Start and enable Docker service
+# systemctl start docker
+# systemctl enable docker
 
 echo "Post-installation tasks completed successfully."
