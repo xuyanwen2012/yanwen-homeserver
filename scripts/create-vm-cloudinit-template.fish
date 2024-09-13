@@ -55,6 +55,7 @@ function create_cloudinit_config
     echo "Copied vendor file to $VENDOR_LOCATIONS/$os_name.yaml"
 
     # Set Cloud-Init custom vendor file, user, and SSH keys
+    qm set $vmid --ide2 $STORAGE:cloudinit
     qm set $vmid --cicustom "vendor=local:snippets/$os_name.yaml"
     qm set $vmid --ciuser $USER
     qm set $vmid --sshkeys ~/.ssh/authorized_keys
