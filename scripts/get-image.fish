@@ -1,23 +1,23 @@
 #!/usr/bin/env fish
 
 # list of image urls (latest versions)
-set -g image_urls "debian=https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-generic-amd64.qcow2" \
+set -g IMAGE_URLS "debian=https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-generic-amd64.qcow2" \
     "ubuntu=https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img" \
     "fedora=https://download.fedoraproject.org/pub/fedora/linux/releases/40/Cloud/x86_64/images/Fedora-Cloud-Base-Generic.x86_64-40-1.14.qcow2"
 
 # [helper] the download file name is the last part of the url after the last '/'
 function get_download_name
-    set -l url $argv[1]
-    set -l file_name (string split -m 1 -r / $url)
+    set url $argv[1]
+    set file_name (string split -m 1 -r / $url)
     echo $file_name[-1]
 end
 
 # this function takes in the image name (key) and downloads the image
 function get_image
-    set -l os_name $argv[1]
-    set -l image_url (echo $image_urls | grep -oP "$os_name=\K[^ ]+")
+    set os_name $argv[1]
+    set image_url (echo $IMAGE_URLS | grep -oP "$os_name=\K[^ ]+")
 
-    set -l file_name (get_download_name $image_url)
+    set file_name (get_download_name $image_url)
 
     # check if image link exists
     if test -z $file_name
@@ -38,6 +38,7 @@ function get_image
 
     # download the image and resize it to 32G
     wget --show-progress -O $file_name $image_url
+
     qemu-img resize $file_name 32G
 end
 

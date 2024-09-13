@@ -32,4 +32,3 @@ write_files:
 
       [Install]
       WantedBy=multi-user.target
-
