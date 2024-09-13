@@ -1,6 +1,6 @@
 #!/usr/bin/env fish
 
-set -g STORAGE local-lvm
+set -g STORAGE local-zfs
 set -g USER doremy
 set -g VENDOR_LOCATIONS /var/lib/vz/snippets
 
@@ -9,8 +9,9 @@ function create_vm
     # first argument is the vmid
     set vmid $argv[1]
 
-    # optional second argument for vm_name, default to vmid
-    set vm_name (count $argv) -eq 2; and echo $argv[2]; or echo $vmid
+    # second argument is the desired name of the VM
+    set vm_name $argv[2]
+
 
     # check if vmid already exists
     if qm status $vmid &>/dev/null
@@ -60,11 +61,7 @@ function create_cloudinit_config
     qm set $vmid --ipconfig0 ip=dhcp
 end
 
-if test (count $argv) -lt 3
-    echo "Usage: create_vm <vmid> <image_name> <os_name>"
-else
-    create_vm $argv[1]
-    import_disk $argv[1] $argv[2]
-    create_cloudinit_config $argv[1] $argv[3]
-end
+create_vm 666 test-dabian
+import_disk 666 debian-12-generic-amd64.qcow2
+create_cloudinit_config 666 debian
 
