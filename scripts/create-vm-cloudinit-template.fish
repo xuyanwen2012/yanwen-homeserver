@@ -13,7 +13,10 @@ function create_vm
     set vm_name (count $argv) -eq 2; and echo $argv[2]; or echo $vmid
 
     # check if vmid already exists
-    if
+    if qm status $vmid &>/dev/null
+        echo "VM $vmid already exists"
+        return 1
+    end
 
     # Create a new VM (my default settings)
     qm create $vmid --name "$vm_name" --ostype l26 \
