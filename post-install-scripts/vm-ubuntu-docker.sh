@@ -17,9 +17,9 @@ sudo apt-get upgrade -y
 # Install necessary packages
 echo "Installing required packages..."
 sudo apt-get install -y \
-    fish \
-    qemu-guest-agent \
-    tree
+  fish \
+  qemu-guest-agent \
+  tree
 
 # Install Helix text editor
 snap install helix --classic

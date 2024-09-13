@@ -14,20 +14,23 @@ For the following scripts, mostly just install `docker`, `fish` shell, `helix` e
 
 ### Debian 12.5 VM
 
-run 
-```
+run
+
+```bash
 curl -sSL https://raw.githubusercontent.com/xuyanwen2012/yanwen-homeserver/main/post-install-scripts/vm-debian12-docker.sh | sudo bash
 ```
 
 ### Ubuntu 24.04 VM
 
 run
-```
+
+```bash
 curl -sSL https://raw.githubusercontent.com/xuyanwen2012/yanwen-homeserver/main/post-install-scripts/vm-ubuntu-docker.sh | sudo bash
 ```
+
 maybe you want get SSH going, if you used pubkey
 
-```
+```bash
 sed -i -e 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/g' -e 's/^PasswordAuthentication.*/PasswordAuthentication yes/' /etc/ssh/sshd_config
 rm /etc/ssh/sshd_config.d/60-cloudimg-settings.conf
 systemctl restart sshd
@@ -35,23 +38,23 @@ systemctl restart sshd
 
 ## For Docker Manager
 
-we can choise from 
+we can choise from
 
 ### Lazy Docker (preffered)
 
-No need to create accounts for web UI, it just work. 
+No need to create accounts for web UI, it just work.
 
 Just put all compose_file in the user's directory, like in `~/`
 
 Use docker for Lazy docker, set alias in *fish* shell config
 
-```
+```bash
 echo "alias lzd='docker run --rm -it -v /var/run/docker.sock:/var/run/docker.sock -v ~/.config/lazydocker:/.config/jesseduffield/lazydocker lazyteam/lazydocker'" >> ~/.config/fish/config.fish
 ```
 
 ### Dockge (for small test projects)
 
-```
+```bash
 mkdir -p /opt/{dockge,stacks}
 wget -q -O /opt/dockge/compose.yaml https://raw.githubusercontent.com/louislam/dockge/master/compose.yaml
 cd /opt/dockge
@@ -60,7 +63,7 @@ docker compose up -d
 
 ### Portainer (for production)
 
-```
+```bash
 docker volume create portainer_data
 docker run -d \
   -p 8000:8000 \
@@ -72,9 +75,6 @@ docker run -d \
   portainer/portainer-ce:latest
 ```
 
-
-## Development VMs 
+## Development VMs
 
 Using The purpose of these VM is for setting development enviroments for various projects `C++/CUDA/SYCL` etc, which uses the latest features.
-
-
