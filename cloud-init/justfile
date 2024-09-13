@@ -1,0 +1,45 @@
+# Constants
+STORAGE := "local-zfs"
+IMAGE_URL := "https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-generic-amd64.qcow2"
+IMAGE_NAME := "debian-12-generic-amd64.qcow2"
+USER := "doremy"
+
+# Function to resize disk
+resize_disk disk_size:
+    rm -f {{IMAGE_NAME}}
+    wget -q {{IMAGE_URL}}
+    qemu-img resize {{IMAGE_NAME}} {{disk_size}}
+
+# Function to create the VM
+create_vm vmid vm_name:
+    qm destroy {{vmid}} || true
+    qm create {{vmid}} --name "{{vm_name}}" --ostype l26 \
+        --memory 1024 \
+        --agent 1 \
+        --bios ovmf --machine q35 --efidisk0 {{STORAGE}}:0,pre-enrolled-keys=0 \
+        --cpu host --cores 1 --numa 1 \
+        --vga serial0 --serial0 socket  \
+        --net0 virtio,bridge=vmbr0,firewall=1,mtu=1
+
+# Function to import the disk
+import_disk vmid:
+    qm importdisk {{vmid}} {{IMAGE_NAME}} {{STORAGE}}
+    qm set {{vmid}} --scsihw virtio-scsi-pci --virtio0 {{STORAGE}}:vm-{{vmid}}-disk-1,discard=on
+    qm set {{vmid}} --boot order=virtio0
+    qm set {{vmid}} --scsi1 {{STORAGE}}:cloudinit
+
+# Function to create Cloud-Init config
+create_cloudinit_config vmid:
+    qm set {{vmid}} --cicustom "vendor=local:snippets/vendor-debian.yaml"
+    qm set {{vmid}} --ciuser {{USER}}
+    qm set {{vmid}} --sshkeys ~/.ssh/authorized_keys
+    qm set {{vmid}} --ipconfig0 ip=dhcp
+
+# Function to convert to a template
+create_template vmid:
+    qm template {{vmid}}
+
+default vmid vm_name:
+    just create_vm {{vmid}} {{vm_name}}
+    just import_disk {{vmid}} 
+    just create_cloudinit_config {{vmid}}
