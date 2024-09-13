@@ -38,7 +38,7 @@ function get_image
 
     # download the image and resize it to 32G
     wget --show-progress -O $file_name $image_url
-    qemu-img resize $image_name 32G
+    qemu-img resize $file_name 32G
 end
 
 # main function
