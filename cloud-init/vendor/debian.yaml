@@ -4,31 +4,37 @@ package_upgrade: true
 
 # Install Podman
 packages:
+  - qemu-guest-agent
   - podman
   - nfs-common
-
-# Set up the NFS client and mount point
+  - fish
+  
 runcmd:
-  - mkdir -p /mnt/nas-pool
-  - apt-get install -y nfs-common
-  - echo "192.168.1.XXX:/path/to/share /mnt/nas-pool nfs defaults 0 0" >> /etc/fstab
-  - mount -a
+  chsh -s /usr/bin/fish doremy
+  systemctl enable qemu-guest-agent
+  systemctl start qemu-guest-agent
 
-# Optional: enable Podman service (if using as a rootless or system service)
-# For example, if you need to enable a systemd service for Podman, you could add this.
-write_files:
-  - path: /etc/systemd/system/podman.service
-    content: |
-      [Unit]
-      Description=Podman API Service
-      Wants=network-online.target
-      After=network-online.target
+# # Set up the NFS client and mount point
+# runcmd:
+#   - mkdir -p /mnt/nas-pool
+#   - echo "192.168.1.XXX:/path/to/share /mnt/nas-pool nfs defaults 0 0" >> /etc/fstab
+#   - mount -a
 
-      [Service]
-      Environment=DBUS_SYSTEM_BUS_ADDRESS=unix:path=/run/dbus/system_bus_socket
-      ExecStart=/usr/bin/podman --log-level=info --listen
-      Restart=on-failure
-      KillMode=process
+# # Optional: enable Podman service (if using as a rootless or system service)
+# # For example, if you need to enable a systemd service for Podman, you could add this.
+# write_files:
+#   - path: /etc/systemd/system/podman.service
+#     content: |
+#       [Unit]
+#       Description=Podman API Service
+#       Wants=network-online.target
+#       After=network-online.target
 
-      [Install]
-      WantedBy=multi-user.target
+#       [Service]
+#       Environment=DBUS_SYSTEM_BUS_ADDRESS=unix:path=/run/dbus/system_bus_socket
+#       ExecStart=/usr/bin/podman --log-level=info --listen
+#       Restart=on-failure
+#       KillMode=process
+
+#       [Install]
+#       WantedBy=multi-user.target
