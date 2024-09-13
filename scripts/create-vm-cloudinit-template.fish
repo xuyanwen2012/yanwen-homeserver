@@ -18,7 +18,8 @@ function create_vm
         return 1
     end
 
-    # Create a new VM (my default settings)
+    echo "Creating VM $vmid with name $vm_name"
+
     qm create $vmid --name "$vm_name" --ostype l26 \
         --memory 2048 --balloon 512 \
         --agent 1 \
