@@ -1,12 +1,10 @@
 # yanwen-homeserver
 
-
 ## Currently my list of services
 
 * Immich [link](https://immich.app/docs/install/portainer)
 * Jellyfin [link](0)
-* 
-
+*
 
 ## Making VM templates
 
@@ -14,11 +12,9 @@
 
 ## Special instructionrs
 
-### Podman-portainer
-
 good article [link](https://blog.while-true-do.io/podman-portainer/).
 
-#### Portainer (rootful)
+### Portainer (rootful)
 
 this time I am going to use `lts` version of the portainer (should be `2.21.0` LTS)
 
@@ -34,7 +30,7 @@ sudo podman run \
   docker.io/portainer/portainer-ce:lts
 ```
 
-#### Portainer (rootless)
+### Portainer (rootless)
 
 Rootless Podman uses rootless API ports. Therefor, we need to start this service, first.
 
@@ -62,3 +58,18 @@ podman run \
   --volume portainer_data:/data:Z \
   docker.io/portainer/portainer-ce
 ```
+
+### Portainer Agent
+
+```bash
+podman run -d \
+  -p 9001:9001 \
+  --name portainer_agent \
+  --restart=always \
+  -v /run/user/$(id -u)/podman/podman.sock:/var/run/docker.sock \ 
+  -v /home/$(whoami)/.local/share/containers/storage/volumes:/var/lib/docker/volumes \ 
+  -v /:/host \
+  docker.io/portainer/agent:2.21.1
+```
+
+maybe that should be `lts` also, give a try
