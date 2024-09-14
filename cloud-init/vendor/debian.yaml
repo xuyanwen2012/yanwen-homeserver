@@ -1,0 +1,15 @@
+#cloud-config
+package_update: true
+package_upgrade: true
+
+# Install Podman
+packages:
+  - qemu-guest-agent
+  - podman
+  - nfs-common
+  - fish
+
+runcmd:
+  - chsh -s /usr/bin/fish doremy
+  - systemctl enable qemu-guest-agent
+  - systemctl start qemu-guest-agent
