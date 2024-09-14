@@ -21,13 +21,14 @@ function create_vm
 
     echo "Creating VM $vmid with name $vm_name"
 
+    #
     qm create $vmid --name "$vm_name" --ostype l26 \
         --memory 2048 --balloon 512 \
         --agent 1 \
         --bios ovmf --machine q35 --efidisk0 $STORAGE:0,pre-enrolled-keys=0 \
         --cpu host --cores 2 --numa 1 \
         --vga serial0 --serial0 socket \
-        --net0 virtio,bridge=vmbr0,firewall=1,mtu=1
+        --net0 virtio,bridge=vmbr0
 end
 
 # Function to import the disk image
@@ -62,7 +63,8 @@ function create_cloudinit_config
     qm set $vmid --ipconfig0 ip=dhcp
 end
 
+
+
 create_vm 666 test-dabian
 import_disk 666 debian-12-generic-amd64.qcow2
 create_cloudinit_config 666 debian
-
