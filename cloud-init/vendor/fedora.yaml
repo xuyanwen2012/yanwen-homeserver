@@ -1,0 +1,13 @@
+#cloud-config
+package_update: true
+package_upgrade: true
+
+# Install Podman
+packages:
+  - qemu-guest-agent
+  - podman
+  - nfs-utils # for Fedora, nfs-common is nfs-utils
+  - fish
+
+runcmd:
+  - chsh -s /usr/bin/fish doremy

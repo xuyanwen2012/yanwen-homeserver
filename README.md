@@ -10,6 +10,23 @@
 
 ### Debian
 
+
+
+Change sources to `192.168.1.154` where my debian mirror is at
+
+#### enable backports
+
+```bash
+echo "deb http://192.168.1.154/debian bookworm-backports main" | sudo tee /etc/apt/sources.list.d/backports.list
+sudo apt update
+```
+
+example, installing `cockpit`
+
+```bash 
+sudo apt install -t bookworm-backports cockpit
+```
+
 ## Special instructionrs
 
 good article [link](https://blog.while-true-do.io/podman-portainer/).
