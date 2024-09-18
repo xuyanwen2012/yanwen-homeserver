@@ -12,29 +12,29 @@ packages:
   # Virtualization
   - qemu-guest-agent
 
-  # Docker dependencies
-  - curl
-  - apt-transport-https
-  - ca-certificates
-  - gnupg-agent
-  - software-properties-common
+  # # Docker dependencies
+  # - curl
+  # - apt-transport-https
+  # - ca-certificates
+  # - gnupg-agent
+  # - software-properties-common
 
-  # Install Docker
-  - docker-ce
-  - docker-ce-cli
-  - containerd.io
-  - docker-buildx-plugin
-  - docker-compose-plugin
+  # # Install Docker
+  # - docker-ce
+  # - docker-ce-cli
+  # - containerd.io
+  # - docker-buildx-plugin
+  # - docker-compose-plugin
 
   # my favorite shell
   - fish
 
-groups:
-  - docker
+# groups:
+#   - docker
 
-system_info:
-  default_user:
-    groups: [docker]
+# system_info:
+#   default_user:
+#     groups: [docker]
 
 runcmd:
   - chsh -s /usr/bin/fish doremy

@@ -138,6 +138,7 @@ function create_cloudinit_config
     set os_name (get_os_name $cloud_init_file)
 
     cp $cloud_init_file $VENDOR_LOCATIONS/$os_name.yaml
+    echo "Copied vendor file to $VENDOR_LOCATIONS/$os_name.yaml"
 
     # Set Cloud-Init custom vendor file, user, and SSH keys
     qm set $vmid --ide2 $STORAGE:cloudinit
