@@ -1,0 +1,24 @@
+############# config ##################
+#
+set base_path    /mnt/my-apt-mirror
+#
+set mirror_path  $base_path/mirror
+set skel_path    $base_path/skel
+set var_path     $base_path/var
+set cleanscript $var_path/clean.sh
+set defaultarch  amd64
+set postmirror_script $var_path/postmirror.sh
+set run_postmirror 0
+set nthreads     20
+set _tilde 0
+#
+############# end config ##############
+
+deb http://deb.debian.org/debian bookworm main contrib non-free
+deb http://deb.debian.org/debian-security bookworm-security main contrib non-free
+deb http://deb.debian.org/debian bookworm-updates main contrib non-free
+deb http://deb.debian.org/debian bookworm-backports main contrib non-free
+
+#deb-src http://ftp.us.debian.org/debian main contrib non-free
+
+clean http://ftp.us.debian.org/debian

@@ -1,5 +1,16 @@
 # mirrors
 
+## on server
+
+edit `/etc/apt/mirror.list` to
+
+```txt
+
+```
+
+
+## on clients
+
 edit `/etc/apt/mirrors/debian.list` to
 
 ```txt
