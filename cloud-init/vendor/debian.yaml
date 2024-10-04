@@ -18,5 +18,5 @@ packages:
   - fish
 
 runcmd:
-  - systemctl enable qemu-guest-agent
-  - systemctl start qemu-guest-agent
+  - systemctl enable qemu-guest-agent.service
+  - systemctl start qemu-guest-agent.service
