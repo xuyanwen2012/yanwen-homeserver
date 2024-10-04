@@ -16,3 +16,7 @@ packages:
   - podman
   - nfs-common
   - fish
+
+runcmd:
+  - systemctl enable qemu-guest-agent
+  - systemctl start qemu-guest-agent
