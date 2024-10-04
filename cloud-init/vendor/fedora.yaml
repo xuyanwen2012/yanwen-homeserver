@@ -2,7 +2,8 @@
 package_update: true
 package_upgrade: true
 
-# Install Podman
+timezone: America/Los_Angeles
+
 packages:
   - qemu-guest-agent
   - podman

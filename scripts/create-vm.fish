@@ -9,13 +9,6 @@ set -g IMAGE_URLS "debian=https://cloud.debian.org/images/cloud/bookworm/latest/
     "ubuntu=https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img" \
     "fedora=https://download.fedoraproject.org/pub/fedora/linux/releases/40/Cloud/x86_64/images/Fedora-Cloud-Base-Generic.x86_64-40-1.14.qcow2"
 
-# # [helper] the download file name is the last part of the url after the last '/'
-# function get_download_name
-#     set url $argv[1]
-#     set file_name (string split -m 1 -r / $url)
-#     echo $file_name[-1]
-# end
-
 # [helper] get the os name from the filename of cloud-init yaml file (e.g., "../cloud-init/vendor/debian-docker.yaml")
 # the name is the part after the last '/' and before the first (or '.')
 function get_os_name
@@ -25,36 +18,6 @@ function get_os_name
     set os_name (string split -m 1 -r - $os_name)
     echo $os_name[1]
 end
-
-# # this function takes in the image name (key) and downloads the image
-# function get_image
-#     # first argument is the image name (e.g., debian)
-#     set os_name $argv[1]
-#     set image_url (echo $IMAGE_URLS | grep -oP "$os_name=\K[^ ]+")
-#     set file_name (get_download_name $image_url)
-
-#     # check if image link exists
-#     if test -z $file_name
-#         echo "Image not found"
-#         return 1
-#     end
-
-#     # check if file already exists, prompt user to overwrite
-#     if test -f $file_name
-#         echo "File $file_name already exists. Overwrite? [y/n]"
-#         read -l overwrite
-#         if test $overwrite = n
-#             return 0
-#         end
-#     end
-
-#     echo "Downloading $file_name from $image_url"
-
-#     # download the image and resize it to 32G
-#     wget --show-progress -O $file_name $image_url
-
-#     qemu-img resize $file_name 32G
-# end
 
 # this function takes in the image name (key) and downloads the image
 function get_image
@@ -97,11 +60,7 @@ function create_vm
 
     echo "Creating VM $vmid with name $vm_name" with default settings
 
-    qm create $vmid --name "$vm_name" --ostype l26 \
-        --memory 2048 --balloon 512 \
-        --agent 1 \
-        --bios ovmf --machine q35 --efidisk0 $STORAGE:0,pre-enrolled-keys=0 \
-        --cpu host --cores 2 --numa 1 \
+    qm create $vget_imagehost --cores 2 --numa 1 \
         --vga serial0 --serial0 socket \
         --net0 virtio,bridge=vmbr0
 end
@@ -180,7 +139,3 @@ get_image $os_name
 create_vm $vmid $vm_name
 import_disk $vmid $file_name
 create_cloudinit_config $vmid $cloud_init_file
-
-
-# set os_name (get_os_name $cloud_init_file)
-# echo $os_name
