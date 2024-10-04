@@ -12,3 +12,5 @@ packages:
 
 runcmd:
   - chsh -s /usr/bin/fish doremy
+  - systemctl enable qemu-guest-agent
+  - systemctl start qemu-guest-agent
