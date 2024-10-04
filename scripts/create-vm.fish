@@ -60,7 +60,7 @@ function create_vm
 
     echo "Creating VM $vmid with name $vm_name" with default settings
 
-    qm create $vget_imagehost --cores 2 --numa 1 \
+    qm create $vmid --cores 2 --numa 1 \
         --vga serial0 --serial0 socket \
         --net0 virtio,bridge=vmbr0
 end
