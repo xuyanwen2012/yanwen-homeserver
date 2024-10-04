@@ -79,7 +79,7 @@ function import_disk
     qm importdisk $vmid $file_name $STORAGE
 
     # Set the imported disk as the main disk
-    qm set $vmid --scsihw virtio-scsi-pci --virtio0 $STORAGE:vm-$vmid-disk-1,discard=on
+    qm set $vmid --scsihw virtio-scsi-pci --virtio0 $STORAGE:vm-$vmid-disk-0,discard=on
     qm set $vmid --boot order=virtio0
 end
 
