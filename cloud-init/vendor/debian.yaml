@@ -4,13 +4,15 @@ package_upgrade: true
 
 timezone: America/Los_Angeles
 
+users:
+  - name: doremy
+    groups: sudo
+    shell: /usr/bin/fish
+    ssh_authorized_keys:
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOQbjxPBbTmHNZ6A5Tu3osh9NXT2dBU4ZLVNiOW/HP+1 doremy@sweet
+
 packages:
   - qemu-guest-agent
   - podman
   - nfs-common
   - fish
-
-runcmd:
-  - chsh -s /usr/bin/fish doremy
-  - systemctl enable qemu-guest-agent
-  - systemctl start qemu-guest-agent
