@@ -1,0 +1,43 @@
+#cloud-config
+
+# Set hostname
+hostname: arch-server
+
+# Set timezone to US/Los_Angeles
+timezone: US/Los_Angeles
+
+# Create a default admin user named doremy with sudo privileges and fish as the default shell
+users:
+  - name: doremy
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    shell: /usr/bin/fish
+    ssh_authorized_keys:
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOQbjxPBbTmHNZ6A5Tu3osh9NXT2dBU4ZLVNiOW/HP+1 doremy@sweet
+
+# Configure package installation and update repositories
+package_update: true
+package_upgrade: true
+packages:
+  - base
+  - sudo
+  - openssh
+  - qemu-guest-agent
+  - fish
+  - helix
+  - fastfetch
+
+# Configure SSH and QEMU Guest Agent services to start on boot
+runcmd:
+  - systemctl enable sshd
+  - systemctl start sshd
+  - systemctl enable qemu-guest-agent
+  - systemctl start qemu-guest-agent
+
+# Write a message to /etc/motd
+write_files:
+  - path: /etc/motd
+    content: |
+      Welcome to Arch Linux!
+
+# Final message
+final_message: "Arch Linux setup complete with user 'doremy', fish shell, and additional tools installed."
